@@ -1,0 +1,106 @@
+openapi: 3.0.0
+info:
+  title: Needle In A Haystack
+  version: '1.0'
+  description: 'Takes in a String that should be formatted as a sentence in English and an Array of keyword Stings to look for in the sentence. Returns a count of those keywords.'
+
+servers:
+  - url: 'https://dev.dusenbery/farm'
+    description: prod
+paths:
+  '/needleCount/{haystack}/{needles}':
+    get:
+      summary: needleCount
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  haystack:
+                    type: string
+                    description: ''
+                    example: 'I went to Chicago and ate some pizza, then later that month flew to Napa and drank some wine. After that, I drove down to Texas and ate some BBQ. I couldn''t get enough American cuisine, and had to drive over to Kentucky to taste some Bourbon. Even after all this, I still want to have more pizza, and try it in New York.'
+                  needles:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      type: string
+                      example: '"pizza", "wine", "BBQ", "bourbon"'
+              examples:
+                Example:
+                  value:
+                    haystack: 'I went to Chicago and ate some pizza, then later that month flew to Napa and drank some wine. After that, I drove down to Texas and ate some BBQ. I couldn''t get enough American cuisine, and had to drive over to Kentucky to taste some Bourbon. Even after all this, I still want to have more pizza, and try it in New York.'
+                    needles:
+                      - '"pizza", "wine", "BBQ", "bourbon"'
+      operationId: get-needleCount
+      description: 'Takes in a String that should be formatted as a sentence in English and an Array of keyword Stings to look for in the sentence. Returns a count of those keywords. '
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          name: id
+          description: '**Unique ID**. Search by id Integer number. *Example: 4545*. '
+    parameters:
+      - schema:
+          type: string
+          example: Let's find a needle and thread and another thread.
+        name: haystack
+        in: path
+        required: true
+        description: A sentence in English language.
+      - schema:
+          type: array
+          example: '{"needle", "thread"}'
+        name: needles
+        in: path
+        required: true
+        description: An array of keyword Strings to look for.
+components:
+  schemas:
+    Farm:
+      title: Farm
+      type: object
+      description: A farm where the haystacks will be.
+      x-examples:
+        Huyser Farm:
+          id: 4545
+          name: Huyser Farm
+          city: Holland
+          state: MI
+          zip: '49423'
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the given farm.
+          example: 4545
+        name:
+          type: string
+          description: Name of the farm
+          example: Huyser Farm
+        city:
+          type: string
+          description: City where the farm is located
+          example: Holland
+        state:
+          type: string
+          format: email
+          description: State where the farm is located.
+          example: MI
+        zip:
+          type: integer
+          example: '49423'
+          description: Zip code where the farm is located.
+      required:
+        - id
+        - name
+  securitySchemes:
+    app_id:
+      name: appid
+      type: apiKey
+      in: query
