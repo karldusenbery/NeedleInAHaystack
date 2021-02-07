@@ -3,7 +3,7 @@ info:
   title: Needle In A Haystack
   version: '1.0'
   description: |-
-    This API has a method called findNeedles() that searches though a sentence String called a "haystack" and lookes for specified keywords called "needles" and outputs a count of how times each of those keywords appear in that sentence.
+    This API has a method called findNeedles() that searches though a sentence String called a "haystack" and looks for specified keywords called "needles" and outputs a count of how times each of those keywords appear in that sentence.
 
     Here is the Java Method:
 
