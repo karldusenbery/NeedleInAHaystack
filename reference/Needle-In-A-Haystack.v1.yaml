@@ -60,22 +60,68 @@ paths:
     get:
       summary: Needle Count
       tags: []
-      responses: {}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                description: Returns an Array of Strings listing off how many of each needle keywords were found.
+                items:
+                  type: string
+                  example: '{"pizza: 2",  "wine: 1",  "BBQ: 1",  "bourbon: 1"}'
+              examples:
+                Example Output:
+                  value:
+                    - '{"pizza: 2",  "wine: 1",  "BBQ: 1",  "bourbon: 1"}'
+            application/xml:
+              schema:
+                type: array
+                description: Each element of the Array is a String representing the count of how many of each needle keyword found in the haystack of a sentence.
+                items:
+                  type: string
+          headers:
+            haystack:
+              schema:
+                type: string
+                example: Let's find a needle and thread and another thread.
+              description: A sentence in English language.
+            needles:
+              schema:
+                type: array
+                example: '{"needle", "thread"}'
+              description: An array of Strings to look for.
       operationId: get-needleCount
       description: 'Takes in a String that should be formatted as a sentence in English and an Array of keyword Stings to look for in the sentence. Returns a count of those keywords. '
-      parameters:
-        - schema:
-            type: string
-          in: query
-          name: haystack
-          description: A sentence in English language.
-          required: true
-        - schema:
-            type: array
-          in: query
-          name: needles
-          description: An array of Strings to look for.
-          required: true
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type:
+                - string
+                - array
+              example: 'I went to Chicago and ate some pizza, then later that month flew to Napa and drank some wine. After that, I drove down to Texas and ate some BBQ. I couldn''t get enough American cuisine, and had to drive over to Kentucky to taste some Bourbon. Even after all this, I still want to have more pizza, and try it in New York.'
+              enum:
+                - string
+              items:
+                type: string
+                example: '{"pizza", "wine", "BBQ", "bourbon"'
+            examples: {}
+          application/xml:
+            schema:
+              type: object
+              properties:
+                '':
+                  type: array
+                  description: ''
+                  items:
+                    type: string
+                    example: '{"pizza", "wine", "BBQ", "bourbon"}'
+              required:
+                - ''
+        description: Example request
     parameters:
       - schema:
           type: string
