@@ -95,33 +95,6 @@ paths:
       operationId: get-needleCount
       description: 'Takes in a String that should be formatted as a sentence in English and an Array of keyword Stings to look for in the sentence. Returns a count of those keywords. '
       parameters: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type:
-                - string
-                - array
-              example: 'I went to Chicago and ate some pizza, then later that month flew to Napa and drank some wine. After that, I drove down to Texas and ate some BBQ. I couldn''t get enough American cuisine, and had to drive over to Kentucky to taste some Bourbon. Even after all this, I still want to have more pizza, and try it in New York.'
-              enum:
-                - string
-              items:
-                type: string
-                example: '{"pizza", "wine", "BBQ", "bourbon"'
-            examples: {}
-          application/xml:
-            schema:
-              type: object
-              properties:
-                '':
-                  type: array
-                  description: ''
-                  items:
-                    type: string
-                    example: '{"pizza", "wine", "BBQ", "bourbon"}'
-              required:
-                - ''
-        description: Example request
     parameters:
       - schema:
           type: string
